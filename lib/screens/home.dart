@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:imgswitcher/screens/select_image.dart';
 
 class Home extends StatelessWidget {
+  File _image;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -9,20 +14,22 @@ class Home extends StatelessWidget {
         centerTitle: true,
       ),
       body: Center(
-        child: GestureDetector(
-          child: Container(
+        child: InkWell(
+          borderRadius: BorderRadius.circular(100),
+          child: Ink(
             width: 200,
             height: 200,
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                    image: NetworkImage(
-                        'https://googleflutter.com/sample_image.jpg'),
+                    image: _image == null
+                        ? NetworkImage(
+                            'https://googleflutter.com/sample_image.jpg')
+                        : FileImage(_image),
                     fit: BoxFit.fill)),
           ),
-          onTap: () {
-            print('clicked');
-          },
+          onTap: () => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => SelectImage())),
         ),
       ),
     );
