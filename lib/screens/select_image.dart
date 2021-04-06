@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:imgswitcher/components/image_thumbnail.dart';
 import 'package:imgswitcher/screens/image_view.dart';
 
 class SelectImage extends StatelessWidget {
@@ -14,13 +15,7 @@ class SelectImage extends StatelessWidget {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3, mainAxisSpacing: 2, crossAxisSpacing: 2),
         itemBuilder: (context, idx) => InkWell(
-            onTap: () => _navigateToView(context),
-            child: Ink.image(
-              image: NetworkImage(
-                'https://baconmockup.com/300/200',
-              ),
-              fit: BoxFit.fill,
-            )),
+            onTap: () => _navigateToView(context), child: ImageThumbnail()),
         itemCount: 100,
       ),
     );
@@ -28,6 +23,17 @@ class SelectImage extends StatelessWidget {
 
   void _navigateToView(BuildContext context) {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => ImageView()));
+        context,
+        MaterialPageRoute(
+            builder: (context) => ImageView(
+                  <ImageThumbnail>[
+                    ImageThumbnail(),
+                    ImageThumbnail(),
+                    ImageThumbnail(),
+                  ],
+                  backgroundDecoration: const BoxDecoration(
+                    color: Colors.black,
+                  ),
+                )));
   }
 }

@@ -8,11 +8,11 @@ class App extends StatelessWidget {
       title: 'Image Switcher',
       theme: ThemeData(
           primarySwatch: Colors.amber,
-          accentColor: Colors.amberAccent,
+          accentColor: Colors.white,
           fontFamily: 'SF Pro Display',
           textTheme: TextTheme(
               button: TextStyle(color: Colors.white, fontSize: 18),
-              headline6: TextStyle(color: Colors.yellow))),
+              headline6: TextStyle(color: Colors.white))),
       home: Home(),
     );
   }
