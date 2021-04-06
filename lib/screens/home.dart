@@ -13,8 +13,13 @@ class Home extends StatelessWidget {
         title: Text('Change Image'),
         centerTitle: true,
       ),
-      body: Center(
-        child: InkWell(
+      body: _renderProfileImg(context),
+    );
+  }
+
+  Widget _renderProfileImg(BuildContext context) {
+    return Center(
+      child: InkWell(
           borderRadius: BorderRadius.circular(100),
           child: Ink(
             width: 200,
@@ -28,10 +33,12 @@ class Home extends StatelessWidget {
                         : FileImage(_image),
                     fit: BoxFit.fill)),
           ),
-          onTap: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => SelectImage())),
-        ),
-      ),
+          onTap: () => _navigateToSelectPage(context)),
     );
+  }
+
+  void _navigateToSelectPage(BuildContext context) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => SelectImage()));
   }
 }
