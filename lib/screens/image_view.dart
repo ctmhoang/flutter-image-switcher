@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:imgswitcher/components/image_thumbnail.dart';
+import 'package:imgswitcher/screens/home.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
@@ -27,11 +28,13 @@ class ImageView extends StatefulWidget {
 
 class _ImageViewState extends State<ImageView> {
   int currIdx;
+  PageController _controller;
 
   @override
   void initState() {
     super.initState();
     currIdx = widget.initialIndex;
+    _controller = PageController(initialPage: currIdx);
   }
 
   @override
@@ -42,8 +45,16 @@ class _ImageViewState extends State<ImageView> {
         centerTitle: true,
         actions: <Widget>[
           TextButton(
-              onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('This is a snackbar'))),
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Home(
+                            url: widget.galleryItems[currIdx].resource,
+                          )),
+                  (Route<dynamic> route) => false,
+                );
+              },
               child: Text('Select',
                   style: TextStyle(
                     color: Colors.black,
@@ -63,6 +74,7 @@ class _ImageViewState extends State<ImageView> {
           onPageChanged: onPageChanged,
           scrollDirection: widget.scrollDirection,
           gaplessPlayback: true,
+          pageController: _controller,
         ),
       ),
     );
@@ -76,6 +88,8 @@ class _ImageViewState extends State<ImageView> {
 
   PhotoViewGalleryPageOptions _buildItem(BuildContext context, int index) {
     final ImageThumbnail item = widget.galleryItems[index];
+    print(index);
+    print(item.resource);
     return PhotoViewGalleryPageOptions(
       imageProvider: NetworkImage(item.resource),
       initialScale: PhotoViewComputedScale.contained,

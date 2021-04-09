@@ -1,10 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:imgswitcher/screens/select_image.dart';
 
 class Home extends StatelessWidget {
-  File _image;
+  final String url;
+  Home({this.url});
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +26,10 @@ class Home extends StatelessWidget {
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
-                    image: _image == null
+                    image: url == null
                         ? NetworkImage(
                             'https://googleflutter.com/sample_image.jpg')
-                        : FileImage(_image),
+                        : NetworkImage(url),
                     fit: BoxFit.fill)),
           ),
           onTap: () => _navigateToSelectPage(context)),

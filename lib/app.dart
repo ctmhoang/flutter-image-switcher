@@ -5,6 +5,8 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/home',
+      routes: {'/home': (context) => Home()},
       title: 'Image Switcher',
       theme: ThemeData(
           primarySwatch: Colors.amber,
